@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-oreo",
+  "version": "0.2.4",
+  "description": "cross-platform cookies for Cordova, Electron and Browsers",
+  "cordova": {
+    "id": "cordova-plugin-oreo",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PudreteDiablo/cordova-plugin-oreo.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Diablo Luna [@PudreteDiablo]",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PudreteDiablo/cordova-plugin-oreo/issues"
+  },
+  "homepage": "https://github.com/PudreteDiablo/cordova-plugin-oreo#readme"
+}
