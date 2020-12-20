@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-oreo",
   "version": "0.2.4",
-  "description": "cross-platform cookies for Cordova, Electron and Browsers",
+  "description": "cross-platform cookies for Cordova, Electron and Javascript",
   "cordova": {
     "id": "cordova-plugin-oreo",
     "platforms": [

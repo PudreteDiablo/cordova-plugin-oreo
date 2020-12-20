@@ -1,15 +1,15 @@
-/********* oreo.js.m Cordova Plugin Implementation *******/
+/********* oreo.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
 
-@interface oreo.js : CDVPlugin {
+@interface oreo : CDVPlugin {
   // Member variables go here.
 }
 
 - (void)coolMethod:(CDVInvokedUrlCommand*)command;
 @end
 
-@implementation oreo.js
+@implementation oreo
 
 - (void)coolMethod:(CDVInvokedUrlCommand*)command
 {
