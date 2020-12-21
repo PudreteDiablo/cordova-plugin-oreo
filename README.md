@@ -11,14 +11,14 @@
 
 ## Installation
 
-#### JavaScript CDN
-```
-https://cdn.jsdelivr.net/npm/oreo.js/dist/oreo.min.js
-```
-
 #### Plugin Manager
 ```
 cordova plugin add cordova-plugin-oreo
+```
+
+#### CDN (Recommended)
+```html
+<script src="https://cdn.jsdelivr.net/npm/oreo.js/dist/oreo.min.js"></script>
 ```
 
 ------
