@@ -2,8 +2,10 @@
 ### Add cookies to your Cordova Project.
 
 [![npm version](https://badge.fury.io/js/cordova-plugin-oreo.svg)](//npmjs.com/package/cordova-plugin-oreo)
-[![Cordova](https://img.shields.io/badge/Cordova-Yes-blue.svg)](#available-platforms)
-[![Ionic](https://img.shields.io/badge/Ionic%20Tested-No-gray.svg)](#available-platforms)
+[![Cordova](https://img.shields.io/badge/Cordova-Yes-blue.svg)](#)
+[![Ionic](https://img.shields.io/badge/Android%20Tested-Yes-green.svg)](#)
+[![Ionic](https://img.shields.io/badge/Ionic%20Tested-No-gray.svg)](#)
+[![Ionic](https://img.shields.io/badge/iOS%20Tested-No-gray.svg)](#)
 
 ------
 
