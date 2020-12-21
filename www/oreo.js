@@ -1,8 +1,3 @@
-var exec = require('cordova/exec');
-
-exports.coolMethod = function (arg0, success, error) {
-    exec(success, error, 'oreo', 'coolMethod', [arg0]);
-};
 ( function ( ) {
   /* 
     Copyright 2021 Diablo Luna [@PudreteDiablo]
@@ -108,6 +103,7 @@ exports.coolMethod = function (arg0, success, error) {
   var oreo  ;
   var cache = { } ;
   var ch_iz = false ;
+  var handl = [ ] ;
   var conf  = {
     cookies_limit : true ,
     cookies_size_limit : true ,
@@ -143,12 +139,12 @@ exports.coolMethod = function (arg0, success, error) {
 
   Object.defineProperty( oreo, 'list', {
     /**
-     * @return {OreoCookie[]} - All saved cookies.
+     * @return {cookie_str[]} - All saved cookies.
      */
     get : ( ) => {
       if( ch_iz === false ) { READ( ) ; }
       var l = [ ] ;
-      for( var i in cache ) { l.push( cache[ i ].cookie_str ) ; }
+      for( var i in cache ) { if( cache[ i ] ) { l.push( cache[ i ].cookie_str ) } ; }
       return l ;
     }
   } ) ;
@@ -160,7 +156,7 @@ exports.coolMethod = function (arg0, success, error) {
     get : ( ) => {
       if( ch_iz === false ) { READ( ) ; }
       var obj = { } ;
-      for( var x in cache ) { if( cache[ x ] !== null ) { obj[ x ] = cache[ x ] ; } }
+      for( var x in cache ) { if( cache[ x ] ) { obj[ x ] = cache[ x ] ; } }
       return obj ;
     }
   } ) ;
@@ -283,6 +279,7 @@ exports.coolMethod = function (arg0, success, error) {
       document.cookie = `${ key }=; expires=Thu, 01 Jan 1970 00:00:00 UTC; samesite=Lax` ;
       window.localStorage.setItem( `o-cookies-index`, ix ) ;
     } /* UPDATING CACHE [v] */
+    oreo.fire( 'remove', { cookie_key : key } ) ;
     return true ;
   } ;
 
@@ -313,7 +310,7 @@ exports.coolMethod = function (arg0, success, error) {
     if( typeof value === "undefined" ) 
       { throw new Error( 'Please define a value to storage in the cookie.' ) ; }
     if( typeof props === "undefined" ) { props = { } ; }
-    if( !key.match( /^[a-zA-Z0-9\_]*$/g ) ) 
+    if( !key.match( /^[a-zA-Z0-9\_\-]*$/g ) ) 
       { throw new Error( 'Invalid cookie-name. Please use simple names like: "cookiename", "cookie_name" even "CooKiE_NaMe"' ) }
     if( conf.auto_samesite === true ) 
       { props[ 'samesite' ] = "Lax" }
@@ -358,6 +355,7 @@ exports.coolMethod = function (arg0, success, error) {
       str += `; ${ i.toLowerCase( ) }=${ v }` ;
     } /* CREATE OreoCookie [v] */
     var $c = WRITE( str ) ;
+    oreo.fire( 'set', { cookie : $c , cookie_key : $c.key } ) ;
     return $c ;
   } ;
 
@@ -389,8 +387,36 @@ exports.coolMethod = function (arg0, success, error) {
     } /* RETURN [v] */
     cache = { } ;
     ch_iz = false ; 
+    oreo.fire( 'clear' ) ;
     return true ;
   } ;
+
+  /**
+   * @param {!string} eventName - The name of the event.
+   * @param {!function} callback - The function to call everytime the event gets fired
+   */
+  oreo.on = ( eventName, callback ) => {
+    if( typeof eventName !== "string" ) 
+      { throw new Error( 'No eventName defined, please neter a valid one.' ) ; }
+    if( typeof callback !== "function" ) 
+      { throw new Error( 'No callback function defined. Please declare one.' ) ; }
+    var arr = handl.find( h => h.fn === callback ) ;
+    if( arr && arr.length > 0 ) { return true ; }
+    handl.push( { ev : eventName, fn : callback } ) ;
+    return true ; 
+  } ;
+
+  oreo.fire = ( eventName, data ) => {
+    var arr = handl.filter( h => h.ev === eventName ) ;
+    if( !arr || arr.length <= 0 ) { return true ; }
+    for( var i = 0 ; i < arr.length ; i++ ) {
+      try {
+        arr[ i ].fn( data || { } ) ;
+      } catch( ex ) 
+        { console.error( `Can\'t execute "${ eventName }" event callback :: ${ ex.toString( ) }` ) ; }
+    } return true ;
+  } ;
+
 
   /* FUCTIONS [v] */
   function WRITE( str ) {
